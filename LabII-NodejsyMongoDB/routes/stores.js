@@ -54,7 +54,7 @@ router.post("/", (req, res) => {
                 }
             } else {
                 res.render(loginRouter, {
-                    message: "Please log in to continue",
+                    message: "You must be logged in to view this page",
                     messageClass: "alert-danger",
                 });
             }
