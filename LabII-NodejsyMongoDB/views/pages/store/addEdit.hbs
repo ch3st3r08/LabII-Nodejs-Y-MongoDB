@@ -1,0 +1,63 @@
+{{> header}}
+
+<br>
+
+<div class="jumbotron" style="background-color: #B2F6FD; border-radius: 15px; width: 55%; margin: auto; position: absolute; top: 15%; left: 20%; right: 20%; ">
+
+    <br>
+
+    <center>
+        <h2>{{viewTitle}}</h2>
+    </center>
+
+    <br>
+
+    {{!-- Estructura que mostrará el error --}}
+    {{#if message}}
+    <div class="alert {{ messageClass }}">
+        {{message}}
+    </div>
+    {{/if}}
+
+
+    <br>
+
+    <form action="/store" method="POST">
+        <div class="mb-3" style="font-size: 25px;">
+            <center>
+                <div>
+                    <input type="hidden" name="_id" value="{{store._id}}">
+                    <label class="form-label">Store ID</label>
+                    <input style="width: 80%" type="number" class="form-control" name="storeId" id="storeId" value="{{store.storeId}}" required>
+                </div>
+            </center>
+
+            <br>
+
+            <center>
+                <div>
+                    <label class="form-label">Manager Staff ID</label>
+                    <input style="width: 80%" type="number" class="form-control" name="managerStaffId" id="managerStaffId" value="{{store.managerStaffId}}" required>
+                </div>
+            </center>
+
+            <br>
+
+            <center>
+                <div>
+                    <label class="form-label">Address ID</label>
+                    <input style="width: 80%" type="number" class="form-control" name="addressId" id="addressId" value="{{store.addressId}}" required>
+                </div>
+                <div style="font-size: 15px" id="emailHelp" class="form-text">The id of the Address that will be added in the new store must be registered in its own table.</div>
+            </center>
+
+            <br>
+
+            <center>
+                <button style="width: 20%" type="submit" class="btn btn-info">Save</button>
+            </center>
+
+        </div>
+    </form>
+    <br>
+</div>

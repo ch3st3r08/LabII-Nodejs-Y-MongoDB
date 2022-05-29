@@ -1,0 +1,86 @@
+{{> header}}
+
+<br>
+
+<div class="jumbotron" style="background-color: #B2F6FD; border-radius: 15px; width: 55%; margin: auto; position: absolute; top: 10%; left: 20%; right: 20%; ">
+
+    <br>
+
+    <center>
+        <h2>{{viewTitle}}</h2>
+    </center>
+
+    <br>
+
+    <form action="/address" method="POST">
+        <div class="mb-3" style="font-size: 15px;">
+            <center>
+                <div>
+                    <input type="hidden" name="_id" value="{{address._id}}">
+                    <label class="form-label">Address ID</label>
+                    <input style="width: 80%" type="number" class="form-control" name="addressId" id="addressId" value="{{address.addressId}}" required>
+                </div>
+            </center>
+
+            <br>
+
+            <center>
+                <div>
+                    <label class="form-label">Address</label>
+                    <input style="width: 80%" type="text" class="form-control" name="address" id="address" value="{{address.address}}" required>
+                </div>
+            </center>
+
+            <br>
+
+            <center>
+                <div>
+                    <label class="form-label">Address Two</label>
+                    <input style="width: 80%" type="text" class="form-control" name="addressTwo" id="addressTwo" value="{{address.addressTwo}}" required>
+                </div>
+            </center>
+
+            <br>
+
+            <center>
+                <div>
+                    <label class="form-label">District</label>
+                    <input style="width: 80%" type="text" class="form-control" name="district" id="district" value="{{address.district}}" required>
+                </div>
+            </center>
+
+            <br>
+
+            <center>
+                <div>
+                    <label class="form-label">City ID</label>
+                    <input style="width: 80%" type="number" class="form-control" name="cityId" id="cityId" value="{{address.cityId}}" required>
+                </div>
+            </center>
+
+            <br>
+
+            <center>
+                <div>
+                    <label class="form-label">Postal Code</label>
+                    <input style="width: 80%" type="text" class="form-control" name="postalCode" id="postalCode" value="{{address.postalCode}}" required>
+                </div>
+            </center>
+
+            <br>
+
+            <center>
+                <div>
+                    <label class="form-label">Phone</label>
+                    <input style="width: 80%" type="number" class="form-control" name="phone" id="phone" value="{{address.phone}}" required>
+                </div>
+            </center>
+
+            <br>
+
+            <center>
+                <button style="width: 20%" type="submit" class="btn btn-info">Save</button>
+            </center>
+        </div>
+    </form>
+</div>

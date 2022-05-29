@@ -1,0 +1,35 @@
+{{> header}}
+
+<h2>{{viewTitle}}</h2>
+
+<table class="table table-dark table-striped">
+    <thead>
+        <th>Address ID</th>
+        <th>Address</th>
+        <th>Address Two</th>
+        <th>District</th>
+        <th>City ID</th>
+        <th>Postal Code</th>
+        <th>Phone</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        {{#each list}}
+        <tr>
+            <td>{{this.addressId}}</td>
+            <td>{{this.address}}</td>
+            <td>{{this.addressTwo}}</td>
+            <td>{{this.district}}</td>
+            <td>{{this.cityId}}</td>
+            <td>{{this.postalCode}}</td>
+            <td>{{this.phone}}</td>
+            <td>
+                <a href="/address/{{this._id}}" class="btn btn-info">Update</a>
+                <a href="/address/delete/{{this._id}}" class="btn btn-danger"
+                onclick="return confirm('Do you want to delete this record?');">Delete</a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+                

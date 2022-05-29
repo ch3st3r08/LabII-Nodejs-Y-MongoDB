@@ -1,0 +1,96 @@
+{{> header}}
+
+<br>
+
+<div class="jumbotron" style="background-color: #B2F6FD; border-radius: 15px; width: 55%; margin: auto; position: absolute; top: 10%; left: 20%; right: 20%; ">
+
+    <br>
+
+    <center>
+        <h2>{{viewTitle}}</h2>
+    </center>
+
+    <br>
+
+    {{!-- Estructura que mostrará el error --}}
+    {{#if message}}
+    <div class="alert {{ messageClass }}">
+        {{message}}
+    </div>
+    {{/if}}
+
+
+    <br>
+
+    <form action="/customer" method="POST">
+        <div class="mb-3" style="font-size: 15px;">
+            <center>
+                <div>
+                    <input type="hidden" name="_id" value="{{address._id}}">
+                    <label class="form-label">Customer ID</label>
+                    <input style="width: 80%" type="number" class="form-control" name="customerId" id="customerId" value="{{store.customerId}}" required>
+                </div>
+            </center>
+
+            <br>
+
+            <center>
+                <div>
+                    <label class="form-label">Store ID</label>
+                    <input style="width: 80%" type="number" class="form-control" name="storeId" id="storeId" value="{{customer.storeId}}" required>
+                </div>
+            </center>
+
+            <br>
+
+            <center>
+                <div>
+                    <label class="form-label">First Name</label>
+                    <input style="width: 80%" type="text" class="form-control" name="firstName" id="firstName" value="{{customer.firstName}}" required>
+                </div>
+            </center>
+
+            <br>
+
+            <center>
+                <div>
+                    <label class="form-label">Last Name</label>
+                    <input style="width: 80%" type="text" class="form-control" name="lastName" id="lastName" value="{{customer.lastName}}" required>
+                </div>
+            </center>
+
+            <br>
+
+            <center>
+                <div>
+                    <label class="form-label">Email</label>
+                    <input style="width: 80%" type="text" class="form-control" name="email" id="email" value="{{customer.email}}" required>
+                </div>
+            </center>
+
+            <br>
+
+            <center>
+                <div>
+                    <label class="form-label">Address ID</label>
+                    <input style="width: 80%" type="number" class="form-control" name="addressId" id="addressId" value="{{customer.addressId}}" required>
+                </div>
+            </center>
+
+            <br>
+
+            <center>
+                <div type="hidden">
+                    <label class="form-label">Active</label>
+                    <input style="width: 80%" type="number" class="form-control" name="active" id="active" value="{{customer.active}}" required>
+                </div>
+            </center>
+
+            <br>
+
+            <center>
+                <button style="width: 20%" type="submit" class="btn btn-info">Save</button>
+            </center>
+        </div>
+    </form>
+</div>
