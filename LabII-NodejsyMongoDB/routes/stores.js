@@ -95,13 +95,15 @@ router.get('/list', async (req, res) => {
 
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     if (req.user) {
+        const address = await Address.find({},'address')
         Store.findById(req.params.id, (err, doc) => {
             if (!err) {
                 res.render('pages/store/addEdit', {
                     viewTitle: "Update Store",
-                    store: doc
+                    store: doc,
+                    addr: address
                 });
             }
         })
