@@ -10,10 +10,14 @@ const Store = require('../models/store');
 //Ruta de login que validara que haya iniciado sesión para entrar a las rutas
 const loginRouter = '../views/pages/login';
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     if (req.user) {
+        const addressDoc = await Address.find({},'address')
+        const storeDoc =  await Store.find({}, 'storeId')
         res.render('pages/customer/addEdit', {
-            viewTitle: 'New Customer'
+            viewTitle: 'New Customer',
+            addressDoc: addressDoc,
+            storeDoc: storeDoc
         });
     } else {
         res.render(loginRouter, {
@@ -23,73 +27,28 @@ router.get('/', (req, res) => {
     }
 });
 
-router.post("/", (req, res) => {
-    //Crear variables para almacenar los id de Address y Store
-    var addressRecord = new Object();
-    var storeRecord = new Object();
-
-    Address.find((err, doc) => {
-        if (!err) {
-            for (i = 0; i < doc.length; i++) {
-                addressRecord[i] = doc[i].addressId;
-            }
-            Store.find((err, doc) => {
-                if (!err) {
-                    for (i = 0; i < doc.length; i++) {
-                        storeRecord[i] = doc[i].storeId;
-                    }
-                    if (req.user) {
-                        var Address = false;
-                        var Store = false;
-
-                        //Verifica que el id de Store exista
-                        for (i = 0; i < Object.values(storeRecord).length; i++) {
-                            if (storeRecord[i] == req.body.storeId) {
-                                Store = true;
-                            }
-                        }
-
-                        if (Store) {
-                            //Verificamos que el id de Address exista si el id de Store existe
-                            for (i = 0; i < Object.values(addressRecord).length; i++) {
-                                if (addressRecord[i] == req.body.addressId) {
-                                    Address = true;
-                                }
-                            }
-
-                            if (Address) {
-                                //Se añade o actualiza el registro
-                                if (req.body._id == "")
-                                    newCustomer(req, res);
-                                else
-                                    updateCustomer(req, res);
-                            } else {
-                                res.render("pages/customer/addEdit", {
-                                    message: "The Address doesn't exist",
-                                    messageClass: "alert-danger",
-                                });
-                            }
-                        } else {
-                            res.render("pages/customer/addEdit", {
-                                message: "The Store doesn't exist",
-                                messageClass: "alert-danger",
-                            });
-                        }
-                    } else {
-                        res.render(loginRouter, {
-                            message: "You must be logged in to view this page",
-                            messageClass: "alert-danger",
-                        });
-                    }
-
-                } else {
-                    console.log('Error: ' + err);
-                }
-            });
-        } else {
-            console.log('Error: ' + err);
+router.post("/", async (req, res) => {
+    if(req.user){
+        if(!req.body.addressId || !req.body.storeId){
+            const addressDoc = await Address.find({},'address')
+            const storeDoc =  await Store.find({}, 'storeId')
+            res.render("pages/customer/addEdit", {
+                message: "The Address or the Store don't exist",
+                messageClass: "alert-danger",
+                addressDoc: addressDoc,
+                storeDoc: storeDoc
+            })
         }
-    });
+        if (req.body._id == "")
+            newCustomer(req, res);
+        else
+            updateCustomer(req, res);
+    }else {
+        res.render(loginRouter, {
+            message: "You must be logged in to view this page",
+            messageClass: "alert-danger",
+        });
+    }
 });
 
 //metodo para insertar nuevo registro
@@ -125,17 +84,12 @@ function updateCustomer(req, res) {
     });
 }
 
-router.get('/list', (req, res) => {
+router.get('/list', async (req, res) => {
     if (req.user) {
-        Customer.find((err, doc) => {
-            if (!err) {
-                res.render('pages/customer/list', {
-                    list: doc,
-                    viewTitle: "Customer"
-                })
-            } else {
-                console.log("Error", + err)
-            }
+        const doc = await Customer.find({}).populate('addressId').populate('storeId');
+        res.render('pages/customer/list', {
+            list: doc,
+            viewTitle: "Customer"
         });
     } else {
         res.render(loginRouter, {
@@ -146,13 +100,17 @@ router.get('/list', (req, res) => {
 
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     if (req.user) {
+        const addressDoc = await Address.find({},'address')
+        const storeDoc =  await Store.find({}, 'storeId')
         Customer.findById(req.params.id, (err, doc) => {
             if (!err) {
                 res.render('pages/customer/addEdit', {
                     viewTitle: "Update Customer",
-                    store: doc
+                    customer: doc,
+                    addressDoc: addressDoc,
+                    storeDoc: storeDoc
                 });
             }
         })
