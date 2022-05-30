@@ -26,9 +26,9 @@
         <div class="mb-3" style="font-size: 15px;">
             <center>
                 <div>
-                    <input type="hidden" name="_id" value="{{address._id}}">
+                    <input type="hidden" name="_id" value="{{customer._id}}">
                     <label class="form-label">Customer ID</label>
-                    <input style="width: 80%" type="number" class="form-control" name="customerId" id="customerId" value="{{store.customerId}}" required>
+                    <input style="width: 80%" type="number" class="form-control" name="customerId" id="customerId" value="{{customer.customerId}}" required>
                 </div>
             </center>
 
@@ -37,7 +37,12 @@
             <center>
                 <div>
                     <label class="form-label">Store ID</label>
-                    <input style="width: 80%" type="number" class="form-control" name="storeId" id="storeId" value="{{customer.storeId}}" required>
+                    <select name="storeId" id="storeId" class="form-control" style="width: 80%">
+                        <option value="" selected disable>Select a Store</option>
+                    {{#each storeDoc}}
+                        <option value="{{this._id}}">{{this.storeId}}</option>
+                    {{/each}}
+                    </select>                    
                 </div>
             </center>
 
@@ -73,7 +78,13 @@
             <center>
                 <div>
                     <label class="form-label">Address ID</label>
-                    <input style="width: 80%" type="number" class="form-control" name="addressId" id="addressId" value="{{customer.addressId}}" required>
+                    <select name="addressId" id="addressId" class="form-control" style="width: 80%">
+                        <option value="" selected disable>Select an Address</option>
+                    {{#each addressDoc}}
+                        <option value="{{this._id}}">{{this.address}}</option>
+                    {{/each}}
+                    </select>
+                    
                 </div>
             </center>
 

@@ -46,7 +46,13 @@
             <center>
                 <div>
                     <label class="form-label">Address ID</label>
-                    <input style="width: 80%" type="number" class="form-control" name="addressId" id="addressId" value="{{store.addressId}}" required>
+                    <select name="addressId" id="addressId" class="form-control" style="width: 80%">
+                        <option value="" selected disable>Select an Address</option>
+                    {{#each addr}}
+                        <option value="{{this._id}}">{{this.address}}</option>
+                    {{/each}}
+                    </select>
+                    <!--<input style="width: 80%" type="number" class="form-control" name="addressId" id="addressId" value="{{store.addressId}}" required>-->
                 </div>
                 <div style="font-size: 15px" id="emailHelp" class="form-text">The id of the Address that will be added in the new store must be registered in its own table.</div>
             </center>

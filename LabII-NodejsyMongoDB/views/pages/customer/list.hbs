@@ -17,11 +17,11 @@
         {{#each list}}
         <tr>
             <td>{{this.customerId}}</td>
-            <td>{{this.storeId}}</td>
+            <td>{{this.storeId.storeId}}</td>
             <td>{{this.firstName}}</td>
             <td>{{this.lastName}}</td>
             <td>{{this.email}}</td>
-            <td>{{this.addressId}}</td>
+            <td>{{this.addressId.addressId}} - {{this.addressId.address}} {{this.addressId.addressTwo}}</td>
             <td>{{this.active}}</td>
             <td>
                 <a href="/customer/{{this._id}}" class="btn btn-info">Update</a>
